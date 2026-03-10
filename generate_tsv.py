@@ -65,6 +65,21 @@ def parse_freedict(file_path):
         
     return results
 
+def normalize_lang(lang):
+    """
+    Normalizes 2-letter or friendly names to 3-letter ISO codes as per user requirements.
+    """
+    if not lang:
+        return ''
+    mapping = {
+        'sa': 'san', 'german': 'deu', 'french': 'fra', 'en': 'eng', 'hi': 'hin',
+        'prakrit': 'pra', 'pali': 'pli', 'pi': 'pli', 'ne': 'nep', 'pa': 'pan',
+        'gu': 'guj', 'ks': 'kas', 'ur': 'urd', 'ma': 'mar', 'or': 'ori',
+        'as': 'asm', 'bn': 'ben', 'dv': 'dra', 'kn': 'kan', 'ta': 'tam',
+        'ml': 'mal', 'si': 'sin', 'te': 'tel', 'bo': 'bod'
+    }
+    return mapping.get(lang.lower(), lang.lower())
+
 def parse_tars_md(url):
     """
     Fetches the given tars.MD url and parses its tar.gz links to extract dictionary metadata.
@@ -83,12 +98,12 @@ def parse_tars_md(url):
     links = link_pattern.findall(content)
     
     repo_to_code = {
-        'sanskrit': 'sa', 'hindi': 'hi', 'marathi': 'mr', 'gujarati': 'gu',
-        'nepali': 'ne', 'panjabi': 'pa', 'oriya': 'or', 'assamese': 'as',
-        'bengali': 'bn', 'kannada': 'kn', 'tamil': 'ta', 'malayalam': 'ml',
-        'sinhala': 'si', 'telugu': 'te', 'urdu': 'ur', 'kashmiri': 'ks',
-        'tibetan': 'bo', 'english': 'en', 'pali': 'pi', 'prakrit': 'pra',
-        'ayurveda': 'sa', 'divehi': 'dv'
+        'sanskrit': 'san', 'hindi': 'hin', 'marathi': 'mar', 'gujarati': 'guj',
+        'nepali': 'nep', 'panjabi': 'pan', 'oriya': 'ori', 'assamese': 'asm',
+        'bengali': 'ben', 'kannada': 'kan', 'tamil': 'tam', 'malayalam': 'mal',
+        'sinhala': 'sin', 'telugu': 'tel', 'urdu': 'urd', 'kashmiri': 'kas',
+        'tibetan': 'bod', 'english': 'eng', 'pali': 'pli', 'prakrit': 'pra',
+        'ayurveda': 'san', 'divehi': 'dra'
     }
 
     for link in links:
@@ -122,22 +137,22 @@ def parse_tars_md(url):
         # Infer from repo name if fields are still missing
         default_lang = ''
         if repo_name:
-            # Check for direct matches first
-            if repo_name in repo_to_code.values():
-                default_lang = repo_name
-            else:
-                for key, code in repo_to_code.items():
-                    if key in repo_name:
-                        default_lang = code
-                        break
+            # First check if repo_name itself maps directly to a code
+            for key, code in repo_to_code.items():
+                if key in repo_name:
+                    default_lang = code
+                    break
         
         if not src_lang:
             src_lang = default_lang
         if not tgt_lang:
             tgt_lang = default_lang
+
+        # Normalize to 3-letter codes
+        src_lang = normalize_lang(src_lang)
+        tgt_lang = normalize_lang(tgt_lang)
                 
         # Parse Name and Date from filename
-        # Expected pattern: name__date_time__size.tar.gz
         name = ''
         date = ''
         if '__' in filename:
@@ -148,6 +163,54 @@ def parse_tars_md(url):
         else:
             name = filename.replace('.tar.gz', '')
         
+        # Custom Rules
+        # 2. 'apte-hi', 'vedic-tituals_hi' have 'hin' as target.
+        if name in ['apte-hi', 'vedic-rituals-hi', 'vedic-tituals_hi']:
+            tgt_lang = 'hin'
+        # 3. samskritam-tamizham_dictionary has 'tam' as target.
+        if name == 'samskritam-tamizham_dictionary':
+            tgt_lang = 'tam'
+        # 4. 'shabdArtha_kaustubha' has 'tel' as target.
+        if name == 'shabdArtha_kaustubha':
+            tgt_lang = 'tel'
+        # 5. 'bopp' has 'lat' as target.
+        if name == 'bopp':
+            tgt_lang = 'lat'
+        # 9. LewissAnElementaryLatinDictionary is 'lat' to 'eng'
+        if name == 'LewissAnElementaryLatinDictionary':
+            src_lang = 'lat'
+            tgt_lang = 'eng'
+        # 10. MiddleLiddell and greek-analyses-unicode-babylon are from 'ell' to 'eng'
+        if name in ['MiddleLiddell', 'greek-analyses-unicode-babylon']:
+            src_lang = 'ell'
+            tgt_lang = 'eng'
+        # 11. subbarAya_en-kn is 'eng' to 'kan'
+        if name == 'subbarAya_en-kn':
+            src_lang = 'eng'
+            tgt_lang = 'kan'
+        # 7. All four dictionaries of 'pali-en' source has 'pli' as source and 'eng' as target
+        if 'pali-en' in link:
+            src_lang = 'pli'
+            tgt_lang = 'eng'
+        # 8. 'saad_dev' is from 'eng' to 'guj'
+        if name == 'saad_dev':
+            src_lang = 'eng'
+            tgt_lang = 'guj'
+
+        # 6. 'frish' has 'rus', 'cze' and 'eng' as target. Create three entries.
+        if name == 'frish':
+            for t_lang in ['rus', 'cze', 'eng']:
+                results.append({
+                    'Source': src_lang,
+                    'Target': t_lang,
+                    'Name': name,
+                    'Link': link,
+                    'HeadwordCount': '',
+                    'Version': '',
+                    'Date': date
+                })
+            continue
+
         # Mandatory fields check
         if not src_lang or not tgt_lang or not name or not link:
             missing = [f for f, v in zip(["Source", "Target", "Name", "Link"], [src_lang, tgt_lang, name, link]) if not v]
