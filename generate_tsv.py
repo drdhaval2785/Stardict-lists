@@ -3,6 +3,7 @@ import csv
 import os
 import urllib.request
 import re
+import iso639
 
 def parse_freedict(file_path):
     """
@@ -420,6 +421,65 @@ def parse_wiktionary(file_path):
     print(f"Successfully extracted {len(results)} entries from Wiktionary Dictionaries")
     return results
 
+def normalize_lang2(code):
+    """
+    Converts 2-letter ISO 639-1 to 3-letter ISO 639-2 using the iso639 module.
+    """
+    try:
+        # Get the language object and return the part2t (terminological) 3-letter code
+        code3 = iso639.Lang(code).pt3
+        return code3
+    except:
+        # Return original if conversion fails
+        return code
+
+def parse_wikdict():
+    url = "https://download.wikdict.com/dictionaries/stardict/"
+    results = []
+    
+    try:
+        # Fetching the HTML content
+        with urllib.request.urlopen(url) as response:
+            html_content = response.read().decode('utf-8')
+        # Regex to find the link and the date in the same table row
+        # Group 1: full filename, Group 2: src, Group 3: target, Group 4: date
+        pattern = re.compile(
+            #r'href="(wikdict-(\w{2,3})-(\w{2,3})\.zip)".*?(\d{4}-\d{2}-\d{2})',
+            r'href="(wikdict-(\w{2,3})-(\w{2,3})\.zip)".*?(\d{2}\-[A-Za-z]{3}\-\d{4})',
+            re.DOTALL
+        )
+        
+        for match in pattern.finditer(html_content):
+            filename = match.group(1)
+            src_raw = match.group(2)
+            tgt_raw = match.group(3)
+            date = match.group(4)
+            
+            # Normalize to 3-letter codes
+            src_lang = normalize_lang2(src_raw)
+            tgt_lang = normalize_lang2(tgt_raw)
+            
+            # Name formatting: filename (minus .zip) + ' wiktionary'
+            name_base = filename.rsplit('.', 1)[0]
+            name = f"{name_base}"
+            
+            # Build the results dictionary
+            results.append({
+                'Source': src_lang,
+                'Target': tgt_lang,
+                'Name': name,
+                'Link': url + filename,
+                'HeadwordCount': '',
+                'Version': '',
+                'Date': date
+            })
+            
+    except Exception as e:
+        print(f"Error parsing Wikdict: {e}")
+        
+    print(f"Successfully extracted {len(results)} entries from Wikdict")
+    return results
+
 def main():
     sources_dir = 'sources'
     output_file = 'stardict_dictionaries.tsv'
@@ -430,10 +490,9 @@ def main():
     parsers = {
         'freedict-database.json': parse_freedict,
         'dictionaryIndices.md': parse_dictionary_indices,
-        'wiktionary': parse_wiktionary # Pseudo-source for wiktionary
-        # Future sources can be added here with their respective parser functions
+        'wiktionary': parse_wiktionary,
+        'wikdict': parse_wikdict
     }
-    
     if os.path.exists(sources_dir):
         for filename in os.listdir(sources_dir):
             if filename in parsers and filename != 'wiktionary':
@@ -445,11 +504,14 @@ def main():
     else:
         print(f"Error: Directory '{sources_dir}' not found.")
         return
-        
     # Explicitly run wiktionary parser since it doesn't have a local source file
     if 'wiktionary' in parsers:
         rows = parsers['wiktionary'](None)
         all_rows.extend(rows)
+                
+    # Explicitly run wikdict parser since it doesn't have a local source file
+    rows = parse_wikdict()
+    all_rows.extend(rows)
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
     fieldnames = ['Source', 'Target', 'Name', 'Link', 'HeadwordCount', 'Version', 'Date']
