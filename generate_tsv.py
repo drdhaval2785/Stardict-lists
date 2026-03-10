@@ -251,6 +251,92 @@ def parse_dictionary_indices(file_path):
     print(f"Total entries from dictionaryIndices.md: {len(results)}")
     return results
 
+def parse_wiktionary(file_path):
+    """
+    Parses the Vuizur/Wiktionary-Dictionaries repository from GitHub API.
+    Since we don't have a local file for this, we fetch directly from the repo.
+    """
+    results = []
+    
+    # We will try importing iso639, if not present we fall back to a minimal mapping
+    try:
+        from iso639 import Lang
+        has_iso639 = True
+    except ImportError:
+        has_iso639 = False
+        print("iso639-lang not installed. Using rudimentary mapping for Wiktionary languages.")
+
+    # Minimal manual mapping for iso639 misses and common fallbacks
+    manual_mapping = {
+        'ancient greek': 'grc',
+        'serbo-croatian': 'hbs',
+        'alemannic german': 'gsw',
+        'bavarian': 'bar',
+        'middle english': 'enm',
+        'old english': 'ang',
+        'middle french': 'frm',
+        'old french': 'fro',
+        'romani': 'rom'
+    }
+
+    def get_iso_code(lang_name):
+        lower_name = lang_name.lower()
+        if lower_name in manual_mapping:
+            return manual_mapping[lower_name]
+        
+        if has_iso639:
+            try:
+                lang = Lang(lang_name)
+                return lang.pt3  # 3-letter code
+            except Exception:
+                pass
+        
+        # Fallback to normalized if nothing found
+        return normalize_lang(lang_name)
+
+    url = "https://api.github.com/repos/Vuizur/Wiktionary-Dictionaries/contents/"
+    print(f"Fetching from {url}...")
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            content = response.read().decode('utf-8')
+            data = json.loads(content)
+    except Exception as e:
+        print(f"Error fetching Wiktionary repositories: {e}")
+        return results
+
+    for item in data:
+        name = item.get('name', '')
+        if name.endswith(" Wiktionary dictionary stardict.tar.gz"):
+            download_url = item.get('download_url', '')
+            langs = name.replace(" Wiktionary dictionary stardict.tar.gz", "")
+            
+            parts = langs.split("-")
+            if len(parts) >= 2:
+                target_str = parts[-1]
+                source_str = "-".join(parts[:-1])
+                
+                src_lang = get_iso_code(source_str)
+                tgt_lang = get_iso_code(target_str)
+                
+                if not src_lang or not tgt_lang or not download_url:
+                    missing = [f for f, v in zip(["Source", "Target", "Link"], [src_lang, tgt_lang, download_url]) if not v]
+                    print(f"Skipping '{name}': Missing fields - {', '.join(missing)}")
+                    continue
+                    
+                results.append({
+                    'Source': src_lang,
+                    'Target': tgt_lang,
+                    'Name': langs,
+                    'Link': download_url,
+                    'HeadwordCount': '',
+                    'Version': '',
+                    'Date': ''
+                })
+                
+    print(f"Successfully extracted {len(results)} entries from Wiktionary Dictionaries")
+    return results
+
 def main():
     sources_dir = 'sources'
     output_file = 'stardict_dictionaries.tsv'
@@ -260,21 +346,27 @@ def main():
     # We use a mapping of filename to its specific parser function.
     parsers = {
         'freedict-database.json': parse_freedict,
-        'dictionaryIndices.md': parse_dictionary_indices
+        'dictionaryIndices.md': parse_dictionary_indices,
+        'wiktionary': parse_wiktionary # Pseudo-source for wiktionary
         # Future sources can be added here with their respective parser functions
     }
     
     if os.path.exists(sources_dir):
         for filename in os.listdir(sources_dir):
-            if filename in parsers:
+            if filename in parsers and filename != 'wiktionary':
                 file_path = os.path.join(sources_dir, filename)
                 rows = parsers[filename](file_path)
                 all_rows.extend(rows)
-            else:
+            elif filename not in parsers:
                 print(f"Warning: No parser defined for source '{filename}'")
     else:
         print(f"Error: Directory '{sources_dir}' not found.")
         return
+        
+    # Explicitly run wiktionary parser since it doesn't have a local source file
+    if 'wiktionary' in parsers:
+        rows = parsers['wiktionary'](None)
+        all_rows.extend(rows)
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
     fieldnames = ['Source', 'Target', 'Name', 'Link', 'HeadwordCount', 'Version', 'Date']
