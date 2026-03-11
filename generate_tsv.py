@@ -483,6 +483,48 @@ def parse_wikdict():
     print(f"Successfully extracted {len(results)} entries from Wikdict")
     return results
 
+def parse_dict_org():
+    url = "https://stardict.uber.space/dict.org/index.html"
+    base_url = "https://stardict.uber.space/dict.org/"
+    results = []
+    
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            html_content = response.read().decode('utf-8')
+    except Exception as e:
+        print(f"Error fetching URL {url}: {e}")
+        return results
+    
+    link_pattern = re.compile(r'<a href="(stardict-[^"]+\.tar\.(?:bz2|gz))">([^<]+)</a>')
+    word_count_pattern = re.compile(r'(\d+)\s*words')
+    
+    for match in link_pattern.finditer(html_content):
+        filename = match.group(1)
+        dict_name = match.group(2)
+        
+        row_start = match.start()
+        row_end = match.end() + 200
+        row_context = html_content[row_start:row_end]
+        
+        wc_match = word_count_pattern.search(row_context)
+        headword_count = wc_match.group(1) if wc_match else ''
+        
+        link = base_url + filename
+        
+        results.append({
+            'Source': 'eng',
+            'Target': 'eng',
+            'Name': dict_name,
+            'Link': link,
+            'HeadwordCount': headword_count,
+            'Version': '',
+            'Date': ''
+        })
+    
+    print(f"Successfully extracted {len(results)} entries from dict.org")
+    return results
+
 def main():
     sources_dir = 'sources'
     output_file = 'stardict_dictionaries.tsv'
@@ -514,6 +556,10 @@ def main():
                 
     # Explicitly run wikdict parser since it doesn't have a local source file
     rows = parse_wikdict()
+    all_rows.extend(rows)
+    
+    # Explicitly run dict.org parser
+    rows = parse_dict_org()
     all_rows.extend(rows)
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
