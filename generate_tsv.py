@@ -236,17 +236,17 @@ def parse_tars_md(url):
 
 def parse_dictionary_indices(file_path):
     """
-    Parses the dictionaryIndices.md file and processes each tars.MD URL.
+    Parses the dictionaryIndices.md file from GitHub and processes each tars.MD URL.
     """
-    results = []
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read()
-        
-    # Extract all http/https links pointing to tars.MD or tars_external.MD
-    # The links are enclosed in < > brackets
+    url = 'https://github.com/indic-dict/stardict-index/raw/refs/heads/master/dictionaryIndices.md'
+    print(f"Fetching {url}")
+    with urllib.request.urlopen(url) as response:
+        content = response.read().decode('utf-8')
+    
     url_pattern = re.compile(r'<(https://raw\.githubusercontent\.com/indic-dict/[^>]*tars.*\.MD)>')
     urls = url_pattern.findall(content)
     
+    results = []
     for url in urls:
         print(f"Fetching from {url}")
         rows = parse_tars_md(url)
