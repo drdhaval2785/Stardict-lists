@@ -3,7 +3,7 @@ import csv
 import os
 import urllib.request
 import re
-import iso639
+from iso639 import Lang
 
 def parse_freedict(file_path):
     """
@@ -41,7 +41,7 @@ def parse_freedict(file_path):
                 break
                 
         # If there is no stardict platform release, we skip or handle accordingly (Link is mandatory)
-        if not stardict_release:
+        if stardict_release is None:
             print(f"Skipping '{original_name}': No 'stardict' release found.")
             continue
             
@@ -54,8 +54,8 @@ def parse_freedict(file_path):
             
         # Optional fields
         headword_count = entry.get('headwords', '')
-        version = stardict_release.get('version', entry.get('edition', ''))
-        date = stardict_release.get('date', entry.get('date', ''))
+        version = stardict_release.get('version', entry.get('edition', '')) if stardict_release else entry.get('edition', '')
+        date = stardict_release.get('date', entry.get('date', '')) if stardict_release else entry.get('date', '')
         
         results.append({
             'Source': src_lang,
@@ -140,7 +140,7 @@ def parse_tars_md(url):
         
         # Infer from repo name if fields are still missing
         default_lang = ''
-        if repo_name:
+        if repo_name and isinstance(repo_name, str):
             # First check if repo_name itself maps directly to a code
             for key, code in repo_to_code.items():
                 if key in repo_name:
@@ -265,13 +265,13 @@ def parse_wiktionary(file_path):
     """
     results = []
     
-    # We will try importing iso639, if not present we fall back to a minimal mapping
+    # We will try using Lang (imported at top), if it fails we fall back to a minimal mapping
     try:
-        from iso639 import Lang
+        _ = Lang('en')
         has_iso639 = True
-    except ImportError:
+    except (ImportError, NameError):
         has_iso639 = False
-        print("iso639-lang not installed. Using rudimentary mapping for Wiktionary languages.")
+        print("iso639-lang not installed or failed to import. Using rudimentary mapping for Wiktionary languages.")
 
     # Minimal manual mapping for iso639 misses and common fallbacks
     manual_mapping = {
@@ -430,13 +430,13 @@ def normalize_lang2(code):
     """
     try:
         # Get the language object and return the part2t (terminological) 3-letter code
-        code3 = iso639.Lang(code).pt3
+        code3 = Lang(code).pt3
         return code3
     except:
         # Return original if conversion fails
         return code
 
-def parse_wikdict():
+def parse_wikdict(file_path=None):
     url = "https://download.wikdict.com/dictionaries/stardict/"
     results = []
     
@@ -889,7 +889,7 @@ def main():
         all_rows.extend(rows)
                 
     # Explicitly run wikdict parser since it doesn't have a local source file
-    rows = parse_wikdict()
+    rows = parse_wikdict(None)
     all_rows.extend(rows)
     
     # Explicitly run dict.org parser
