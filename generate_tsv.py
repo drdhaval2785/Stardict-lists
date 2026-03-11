@@ -7,11 +7,14 @@ import iso639
 
 def parse_freedict(file_path):
     """
-    Parses the freedict-database.json file and extracts StarDict links.
+    Parses the freedict-database.json file from freedict.org and extracts StarDict links.
     """
+    url = 'https://freedict.org/freedict-database.json'
+    print(f"Fetching {url}")
+    with urllib.request.urlopen(url) as response:
+        data = json.load(response)
+    
     results = []
-    with open(file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
     
     for entry in data:
         # Rule 4: name should be expanded to 'afr-deu freedict' instead of 'afr-deu'
