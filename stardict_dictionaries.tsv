@@ -1610,3 +1610,34 @@ rus	ita	Lingvo Medical (Ru-It)	https://stardict.uber.space/lingvo/stardict-lingv
 rus	ita	Lingvo PhraseBook (Ru-It)	https://stardict.uber.space/lingvo/stardict-lingvo-RI-PhraseBook-2.4.2.tar.bz2		2.4.2	
 rus	ita	Lingvo Polytechnical (Ru-It)	https://stardict.uber.space/lingvo/stardict-lingvo-RI-Polytechnical-2.4.2.tar.bz2		2.4.2	
 zho	rus	Kotov's Chinese-Russian dictionary	https://stardict.uber.space/lingvo/stardict-lingvo-CR-kotov-2.4.2.tar.bz2		2.4.2	
+eng	eng	Babylon English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English-2.4.2.tar.bz2		2.4.2	
+eng	deu	Babylon English-German	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_German-2.4.2.tar.bz2		2.4.2	
+deu	eng	Babylon German-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-NEW_Babylon_German_English_dictionary-2.4.2.tar.bz2		2.4.2	
+eng	fra	Babylon English-French	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_French-2.4.2.tar.bz2		2.4.2	
+fra	eng	Babylon French-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_French_English_diction-2.4.2.tar.bz2		2.4.2	
+eng	spa	Babylon English-Spanish	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Spanish-2.4.2.tar.bz2		2.4.2	
+spa	eng	Babylon Spanish-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Spanish_English_dictio-2.4.2.tar.bz2		2.4.2	
+eng	ita	Babylon English-Italian	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Italian-2.4.2.tar.bz2		2.4.2	
+ita	eng	Babylon Italian-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Italian_English_dictio-2.4.2.tar.bz2		2.4.2	
+eng	nld	Babylon English-Dutch	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Dutch-2.4.2.tar.bz2		2.4.2	
+nld	eng	Babylon Dutch-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Dutch_English-2.4.2.tar.bz2		2.4.2	
+eng	por	Babylon English-Portuguese	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Portuguese-2.4.2.tar.bz2		2.4.2	
+por	eng	Babylon Portuguese-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Portuguese_English_dic-2.4.2.tar.bz2		2.4.2	
+eng	heb	Babylon English-Hebrew	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Hebrew-2.4.2.tar.bz2		2.4.2	
+heb	eng	Babylon Hebrew-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Hebrew_English-2.4.2.tar.bz2		2.4.2	
+heb	eng	Babylon Hebrew-Thesaurus	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Hebrew_Thesaurus-2.4.2.tar.bz2		2.4.2	
+eng	jpn	Babylon English-Japanese	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Japanese-2.4.2.tar.bz2		2.4.2	
+jpn	eng	Babylon Japanese-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Japanese_English_dicti-2.4.2.tar.bz2		2.4.2	
+zho	eng	Babylon Chinese-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Chinese_S_English-2.4.2.tar.bz2		2.4.2	
+zho	eng	Babylon Chinese-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Chinese_T_English-2.4.2.tar.bz2		2.4.2	
+eng	rus	Babylon English-Russian	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Russian-2.4.2.tar.bz2		2.4.2	
+rus	eng	Babylon Russian-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Russian_English-2.4.2.tar.bz2		2.4.2	
+eng	tur	Babylon English-Turkish	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Turkish-2.4.2.tar.bz2		2.4.2	
+tur	eng	Babylon Turkish-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Turkish_English-2.4.2.tar.bz2		2.4.2	
+eng	swe	Babylon English-Swedish	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Swedish-2.4.2.tar.bz2		2.4.2	
+ell	eng	Babylon Greek-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Greek_English-2.4.2.tar.bz2		2.4.2	
+eng	ell	Babylon English-Greek	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Greek-2.4.2.tar.bz2		2.4.2	
+eng	kor	Babylon English-Korean	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Korean-2.4.2.tar.bz2		2.4.2	
+kor	eng	Babylon Korean-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Korean_English-2.4.2.tar.bz2		2.4.2	
+eng	ara	Babylon English-Arabic	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_English_Arabic-2.4.2.tar.bz2		2.4.2	
+ara	eng	Babylon Arabic-English	https://stardict.uber.space/babylon/bidirectional/stardict-babylon-Babylon_Arabic_English-2.4.2.tar.bz2		2.4.2	

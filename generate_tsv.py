@@ -720,6 +720,76 @@ def parse_lingvo():
     print(f"Successfully extracted {len(results)} entries from Lingvo")
     return results
 
+def parse_babylon_bidirectional():
+    url = "https://stardict.uber.space/babylon/bidirectional/index.html"
+    base_url = "https://stardict.uber.space/babylon/bidirectional/"
+    results = []
+    
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            html_content = response.read().decode('utf-8')
+    except Exception as e:
+        print(f"Error fetching URL {url}: {e}")
+        return results
+    
+    lang_code_map = {
+        'english': 'eng', 'german': 'deu', 'french': 'fra', 'spanish': 'spa',
+        'italian': 'ita', 'dutch': 'nld', 'portuguese': 'por', 'hebrew': 'heb',
+        'japanese': 'jpn', 'chinese': 'zho', 'chinese_s': 'zho', 'chinese_t': 'zho',
+        'russian': 'rus', 'turkish': 'tur', 'swedish': 'swe', 'greek': 'ell',
+        'korean': 'kor', 'arabic': 'ara', 'thesaurus': 'eng'
+    }
+    
+    link_pattern = re.compile(r'<a href="(stardict-[^"]+\.tar\.bz2)">([^<]+)</a>')
+    
+    for match in link_pattern.finditer(html_content):
+        filename = match.group(1)
+        dict_name = match.group(2).strip()
+        
+        src_lang = ''
+        tgt_lang = ''
+        display_name = ''
+        
+        name_for_parsing = dict_name.replace('-', '_').replace(' ', '_')
+        
+        if 'English' in dict_name and '_' not in name_for_parsing:
+            src_lang = 'eng'
+            tgt_lang = 'eng'
+            display_name = 'Babylon English'
+        elif '_' in name_for_parsing:
+            parts = name_for_parsing.split('_')
+            src_raw = parts[0].lower()
+            tgt_raw = parts[-1].lower()
+            
+            src_lang = lang_code_map.get(src_raw, src_raw)
+            tgt_lang = lang_code_map.get(tgt_raw, tgt_raw)
+            
+            src_full = parts[0]
+            tgt_full = parts[-1].replace('_', ' ')
+            display_name = f"Babylon {src_full}-{tgt_full}"
+        elif '-' in dict_name:
+            parts = dict_name.split('-')
+            src_raw = parts[0].strip().lower()
+            tgt_raw = parts[1].strip().lower()
+            src_lang = lang_code_map.get(src_raw, src_raw)
+            tgt_lang = lang_code_map.get(tgt_raw, tgt_raw)
+            display_name = f"Babylon {parts[0]}-{parts[1]}"
+        
+        if src_lang and tgt_lang and display_name:
+            results.append({
+                'Source': src_lang,
+                'Target': tgt_lang,
+                'Name': display_name,
+                'Link': base_url + filename,
+                'HeadwordCount': '',
+                'Version': '2.4.2',
+                'Date': ''
+            })
+    
+    print(f"Successfully extracted {len(results)} entries from Babylon Bidirectional")
+    return results
+
 def main():
     sources_dir = 'sources'
     output_file = 'stardict_dictionaries.tsv'
@@ -768,6 +838,12 @@ def main():
     # Explicitly run Lingvo parser
     rows = parse_lingvo()
     all_rows.extend(rows)
+    
+    # Explicitly run Babylon Bidirectional parser
+    rows = parse_babylon_bidirectional()
+    all_rows.extend(rows)
+                
+    # Rule 1 & 2: Output TSV with mandatory and optional columns
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
     fieldnames = ['Source', 'Target', 'Name', 'Link', 'HeadwordCount', 'Version', 'Date']
