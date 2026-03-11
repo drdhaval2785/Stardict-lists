@@ -571,6 +571,60 @@ def parse_freedict_de():
     print(f"Successfully extracted {len(results)} entries from freedict.de")
     return results
 
+def parse_quick():
+    url = "https://stardict.uber.space/Quick/index.html"
+    base_url = "https://stardict.uber.space/Quick/"
+    results = []
+    
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            html_content = response.read().decode('utf-8')
+    except Exception as e:
+        print(f"Error fetching URL {url}: {e}")
+        return results
+    
+    link_pattern = re.compile(r'<a href="(stardict-quick_([^"]+)-(\d+\.\d+\.\d+)\.tar\.bz2)">([^<]+)</a>')
+    
+    for match in link_pattern.finditer(html_content):
+        filename = match.group(1)
+        src_tgt = match.group(2)
+        version = match.group(3)
+        dict_name = match.group(4)
+        
+        if 'persian' in src_tgt.lower():
+            if src_tgt.startswith('eng-') or dict_name.startswith('quick_eng'):
+                src_lang = 'eng'
+                tgt_lang = 'per'
+            else:
+                src_lang = 'per'
+                tgt_lang = 'eng'
+        else:
+            parts = src_tgt.split('-')
+            if len(parts) == 2:
+                src_lang = normalize_lang(parts[0])
+                tgt_lang = normalize_lang(parts[1])
+            else:
+                src_lang = ''
+                tgt_lang = ''
+        
+        name = f"quick_{src_tgt}"
+        
+        link = base_url + filename
+        
+        results.append({
+            'Source': src_lang,
+            'Target': tgt_lang,
+            'Name': name,
+            'Link': link,
+            'HeadwordCount': '',
+            'Version': version,
+            'Date': ''
+        })
+    
+    print(f"Successfully extracted {len(results)} entries from Quick")
+    return results
+
 def main():
     sources_dir = 'sources'
     output_file = 'stardict_dictionaries.tsv'
@@ -610,6 +664,10 @@ def main():
     
     # Explicitly run freedict.de parser
     rows = parse_freedict_de()
+    all_rows.extend(rows)
+    
+    # Explicitly run Quick parser
+    rows = parse_quick()
     all_rows.extend(rows)
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
