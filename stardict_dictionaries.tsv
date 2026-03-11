@@ -1508,3 +1508,105 @@ swe	wel	quick_swe-wel	https://stardict.uber.space/Quick/stardict-quick_swe-wel-2
 wel	swe	quick_wel-swe	https://stardict.uber.space/Quick/stardict-quick_wel-swe-2.4.2.tar.bz2		2.4.2	
 eng	per	quick_eng-persian-e2010-05-26	https://stardict.uber.space/Quick/stardict-quick_eng-persian-e2010-05-26-2.4.2.tar.bz2		2.4.2	
 per	eng	quick_persian-english_minimal	https://stardict.uber.space/Quick/stardict-quick_persian-english_minimal-2.4.2.tar.bz2		2.4.2	
+eng	rus	LingvoUniversal (English-Russian)	https://stardict.uber.space/lingvo/stardict-ER-LingvoUniversal-2.4.2.tar.bz2	96720	2.4.2	
+rus	eng	LingvoUniversal (Russian-English)	https://stardict.uber.space/lingvo/stardict-RE-LingvoUniversal-2.4.2.tar.bz2	84795	2.4.2	
+deu	rus	LingvoUniversal (German-Russian)	https://stardict.uber.space/lingvo/stardict-GR-LingvoUniversal-2.4.2.tar.bz2	175656	2.4.2	
+rus	deu	LingvoUniversal (Russian-German)	https://stardict.uber.space/lingvo/stardict-RG-LingvoUniversal-2.4.2.tar.bz2	35325	2.4.2	
+fra	rus	LingvoUniversal (French-Russian)	https://stardict.uber.space/lingvo/stardict-FR-LingvoUniversal-2.4.2.tar.bz2	78502	2.4.2	
+rus	fra	LingvoUniversal (Russian-French)	https://stardict.uber.space/lingvo/stardict-RF-LingvoUniversal-2.4.2.tar.bz2	50464	2.4.2	
+fra	rus	Lingvo Business (Fr-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-FR-Business-2.4.2.tar.bz2	12101	2.4.2	
+rus	fra	Lingvo Business (Ru-Fr)	https://stardict.uber.space/lingvo/stardict-lingvo-RF-Business-2.4.2.tar.bz2	13120	2.4.2	
+fra	rus	Lingvo Chemistry (Fr-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-FR-Chemistry-2.4.2.tar.bz2	64612	2.4.2	
+rus	fra	Lingvo Chemistry (Ru-Fr)	https://stardict.uber.space/lingvo/stardict-lingvo-RF-Chemistry-2.4.2.tar.bz2	51262	2.4.2	
+fra	rus	Lingvo Essential (Fr-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-FR-Essential-2.4.2.tar.bz2	14102	2.4.2	
+rus	fra	Lingvo Essential (Ru-Fr)	https://stardict.uber.space/lingvo/stardict-lingvo-RF-Essential-2.4.2.tar.bz2	14908	2.4.2	
+fra	rus	Lingvo Idioms (Fr-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-FR-Idioms-2.4.2.tar.bz2	46205	2.4.2	
+rus	fra	Lingvo PhraseBook (Ru-Fr)	https://stardict.uber.space/lingvo/stardict-lingvo-RF-PhraseBook-2.4.2.tar.bz2	566	2.4.2	
+fra	rus	Lingvo Law (Fr-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-FR-Law-2.4.2.tar.bz2	27231	2.4.2	
+rus	fra	Lingvo Law (Ru-Fr)	https://stardict.uber.space/lingvo/stardict-lingvo-RF-Law-2.4.2.tar.bz2	17258	2.4.2	
+fra	rus	Lingvo Medical (Fr-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-FR-Medical-2.4.2.tar.bz2	53950	2.4.2	
+rus	fra	Lingvo Medical (Ru-Fr)	https://stardict.uber.space/lingvo/stardict-lingvo-RF-Medical-2.4.2.tar.bz2	47874	2.4.2	
+fra	rus	Lingvo OilAndGas (Fr-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-FR-OilAndGas-2.4.2.tar.bz2	24241	2.4.2	
+rus	fra	Lingvo OilAndGas (Ru-Fr)	https://stardict.uber.space/lingvo/stardict-lingvo-RF-OilAndGas-2.4.2.tar.bz2	17306	2.4.2	
+fra	rus	Lingvo Technical (Fr-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-FR-Technical-2.4.2.tar.bz2	69336	2.4.2	
+rus	fra	Lingvo Technical (Ru-Fr)	https://stardict.uber.space/lingvo/stardict-lingvo-RF-Technical-2.4.2.tar.bz2	55261	2.4.2	
+eng	rus	Lingvo Accounting (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Accounting-2.4.2.tar.bz2	5987	2.4.2	
+eng	rus	Lingvo Americana (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Americana-2.4.2.tar.bz2	20967	2.4.2	
+eng	rus	Lingvo Auto (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Auto-2.4.2.tar.bz2	14693	2.4.2	
+rus	eng	Lingvo Auto (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Auto-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Biology (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Biology-2.4.2.tar.bz2	67284	2.4.2	
+rus	eng	Lingvo Biology (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Biology-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Building (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Building-2.4.2.tar.bz2	49787	2.4.2	
+rus	eng	Lingvo Building (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Building-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Computer (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Computer-2.4.2.tar.bz2	47180	2.4.2	
+rus	eng	Lingvo Computer (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Computer-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Computers (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Computers-2.4.2.tar.bz2	13729	2.4.2	
+rus	eng	Lingvo Computers (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Computers-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Economics (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Economics-2.4.2.tar.bz2	48824	2.4.2	
+rus	eng	Lingvo Economics (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Economics-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Engineering (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Engineering-2.4.2.tar.bz2	73601	2.4.2	
+rus	eng	Lingvo Engineering (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Engineering-2.4.2.tar.bz2	38864	2.4.2	
+eng	rus	Lingvo Essential (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Essential-2.4.2.tar.bz2	38864	2.4.2	
+rus	eng	Lingvo Essential (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Essential-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo FinancialManagement (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-FinancialManagement-2.4.2.tar.bz2	7460	2.4.2	
+eng	rus	Lingvo FinancialMarkets (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-FinancialMarkets-2.4.2.tar.bz2	11389	2.4.2	
+eng	rus	Lingvo Grammar (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Grammar-2.4.2.tar.bz2	510	2.4.2	
+eng	rus	Lingvo GreatBritain (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-GreatBritain-2.4.2.tar.bz2	9537	2.4.2	
+eng	rus	Lingvo Informal (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Informal-2.4.2.tar.bz2	15132	2.4.2	
+eng	rus	Lingvo Law (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Law-2.4.2.tar.bz2		2.4.2	
+rus	eng	Lingvo Law (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Law-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Management (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Management-2.4.2.tar.bz2	8961	2.4.2	
+eng	rus	Lingvo Marketing (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Marketing-2.4.2.tar.bz2	11527	2.4.2	
+eng	rus	Lingvo MechanicalEngineering (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-MechanicalEngineering-2.4.2.tar.bz2	13515	2.4.2	
+rus	eng	Lingvo MechanicalEngineering (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-MechanicalEngineering-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Medical (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Medical-2.4.2.tar.bz2	55500	2.4.2	
+rus	eng	Lingvo Medical (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Medical-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo OilAndGas (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-OilAndGas-2.4.2.tar.bz2	49683	2.4.2	
+rus	eng	Lingvo OilAndGas (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-OilAndGas-2.4.2.tar.bz2		2.4.2	
+rus	eng	Lingvo PhraseBook (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-PhraseBook-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Patents (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Patents-2.4.2.tar.bz2	11782	2.4.2	
+rus	eng	Lingvo Patents (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Patents-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Physics (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Physics-2.4.2.tar.bz2	80661	2.4.2	
+rus	eng	Lingvo Physics (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Physics-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Polytechnical (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Polytechnical-2.4.2.tar.bz2	176294	2.4.2	
+rus	eng	Lingvo Polytechnical (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Polytechnical-2.4.2.tar.bz2	152595	2.4.2	
+eng	rus	Lingvo Science (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Science-2.4.2.tar.bz2	152595	2.4.2	
+rus	eng	Lingvo Science (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Science-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Telecoms (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Telecoms-2.4.2.tar.bz2	32995	2.4.2	
+rus	eng	Lingvo Telecoms (Ru-En)	https://stardict.uber.space/lingvo/stardict-lingvo-RE-Telecoms-2.4.2.tar.bz2		2.4.2	
+eng	rus	Lingvo Wine (En-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-ER-Wine-2.4.2.tar.bz2	954	2.4.2	
+deu	rus	Lingvo Active (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Active-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Austria (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Austria-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo AutoService (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-AutoService-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo AutoService (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-AutoService-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Auto (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Auto-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Auto (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Auto-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Banks (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Banks-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Banks (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Banks-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Chemistry (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Chemistry-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Chemistry (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Chemistry-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Economics (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Economics-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Economics (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Economics-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Essential (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Essential-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Essential (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Essential-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Food (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Food-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Food (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Food-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Law (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Law-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Law (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Law-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Medical (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Medical-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Medical (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Medical-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo PhraseBook (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-PhraseBook-2.4.2.tar.bz2		2.4.2	
+deu	rus	Lingvo Polytechnical (Ge-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-GR-Polytechnical-2.4.2.tar.bz2		2.4.2	
+rus	deu	Lingvo Polytechnical (Ru-Ge)	https://stardict.uber.space/lingvo/stardict-lingvo-RG-Polytechnical-2.4.2.tar.bz2		2.4.2	
+ita	rus	Lingvo Auto (It-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-IR-Auto-2.4.2.tar.bz2		2.4.2	
+ita	rus	Lingvo Economics (It-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-IR-Economics-2.4.2.tar.bz2		2.4.2	
+ita	rus	Lingvo Essential (It-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-IR-Essential-2.4.2.tar.bz2		2.4.2	
+ita	rus	Lingvo Medical (It-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-IR-Medical-2.4.2.tar.bz2		2.4.2	
+ita	rus	Lingvo Polytechnical (It-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-IR-Polytechnical-2.4.2.tar.bz2		2.4.2	
+ita	rus	Lingvo Universal (It-Ru)	https://stardict.uber.space/lingvo/stardict-lingvo-IR-Universal-2.4.2.tar.bz2		2.4.2	
+rus	ita	Lingvo Auto (Ru-It)	https://stardict.uber.space/lingvo/stardict-lingvo-RI-Auto-2.4.2.tar.bz2		2.4.2	
+rus	ita	Lingvo Economics (Ru-It)	https://stardict.uber.space/lingvo/stardict-lingvo-RI-Economics-2.4.2.tar.bz2		2.4.2	
+rus	ita	Lingvo Medical (Ru-It)	https://stardict.uber.space/lingvo/stardict-lingvo-RI-Medical-2.4.2.tar.bz2		2.4.2	
+rus	ita	Lingvo PhraseBook (Ru-It)	https://stardict.uber.space/lingvo/stardict-lingvo-RI-PhraseBook-2.4.2.tar.bz2		2.4.2	
+rus	ita	Lingvo Polytechnical (Ru-It)	https://stardict.uber.space/lingvo/stardict-lingvo-RI-Polytechnical-2.4.2.tar.bz2		2.4.2	
+zho	rus	Kotov's Chinese-Russian dictionary	https://stardict.uber.space/lingvo/stardict-lingvo-CR-kotov-2.4.2.tar.bz2		2.4.2	

@@ -625,6 +625,101 @@ def parse_quick():
     print(f"Successfully extracted {len(results)} entries from Quick")
     return results
 
+def parse_lingvo():
+    url = "https://stardict.uber.space/lingvo/index.html"
+    base_url = "https://stardict.uber.space/lingvo/"
+    results = []
+    
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            html_content = response.read().decode('utf-8')
+    except Exception as e:
+        print(f"Error fetching URL {url}: {e}")
+        return results
+    
+    full_lang_mapping = {
+        'english': 'eng', 'russian': 'rus', 'german': 'deu', 'french': 'fra',
+        'chinese': 'zho'
+    }
+    
+    code_2to3 = {
+        'en': 'eng', 'ru': 'rus', 'fr': 'fra', 'de': 'deu', 'ge': 'deu', 'it': 'ita',
+        'er': 'eng', 're': 'rus', 'gr': 'deu', 'rg': 'rus', 'ir': 'ita', 'ri': 'ita',
+        'cr': 'zho'
+    }
+    
+    link_pattern = re.compile(r'<a href="(stardict-[^"]+\.tar\.bz2)">([^<]+)</a>')
+    word_count_pattern = re.compile(r'(\d+)\s*words')
+    
+    for match in link_pattern.finditer(html_content):
+        filename = match.group(1)
+        dict_name = match.group(2)
+        
+        row_start = match.start()
+        row_end = match.end() + 200
+        row_context = html_content[row_start:row_end]
+        
+        wc_match = word_count_pattern.search(row_context)
+        headword_count = wc_match.group(1) if wc_match else ''
+        
+        src_lang = ''
+        tgt_lang = ''
+        
+        if 'Chinese' in dict_name or 'Chinese-Russian' in dict_name:
+            src_lang = 'zho'
+            tgt_lang = 'rus'
+        elif '(' in dict_name:
+            lang_part = dict_name.split('(')[1].split(')')[0]
+            if '-' in lang_part:
+                parts = lang_part.split('-')
+                if len(parts) == 2:
+                    src_raw = parts[0].strip().lower()
+                    tgt_raw = parts[1].strip().lower()
+                    
+                    if len(src_raw) == 2:
+                        src_lang = code_2to3.get(src_raw, src_raw)
+                    elif src_raw in full_lang_mapping:
+                        src_lang = full_lang_mapping.get(src_raw, src_raw)
+                    
+                    if len(tgt_raw) == 2:
+                        tgt_lang = code_2to3.get(tgt_raw, tgt_raw)
+                    elif tgt_raw in full_lang_mapping:
+                        tgt_lang = full_lang_mapping.get(tgt_raw, tgt_raw)
+        elif 'Universal' in dict_name:
+            if 'English-Russian' in dict_name:
+                src_lang = 'eng'
+                tgt_lang = 'rus'
+            elif 'Russian-English' in dict_name:
+                src_lang = 'rus'
+                tgt_lang = 'eng'
+            elif 'German-Russian' in dict_name:
+                src_lang = 'deu'
+                tgt_lang = 'rus'
+            elif 'Russian-German' in dict_name:
+                src_lang = 'rus'
+                tgt_lang = 'deu'
+            elif 'French-Russian' in dict_name:
+                src_lang = 'fra'
+                tgt_lang = 'rus'
+            elif 'Russian-French' in dict_name:
+                src_lang = 'rus'
+                tgt_lang = 'fra'
+        
+        if src_lang and tgt_lang:
+            results.append({
+                'Source': src_lang,
+                'Target': tgt_lang,
+                'Name': dict_name,
+                'Link': base_url + filename,
+                'HeadwordCount': headword_count,
+                'Version': '2.4.2',
+                'Date': ''
+            })
+    
+    print(f"Successfully extracted {len(results)} entries from Lingvo")
+    return results
+
 def main():
     sources_dir = 'sources'
     output_file = 'stardict_dictionaries.tsv'
@@ -668,6 +763,10 @@ def main():
     
     # Explicitly run Quick parser
     rows = parse_quick()
+    all_rows.extend(rows)
+    
+    # Explicitly run Lingvo parser
+    rows = parse_lingvo()
     all_rows.extend(rows)
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
