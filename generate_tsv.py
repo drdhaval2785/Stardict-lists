@@ -790,6 +790,75 @@ def parse_babylon_bidirectional():
     print(f"Successfully extracted {len(results)} entries from Babylon Bidirectional")
     return results
 
+def parse_babylon_english():
+    url = "https://stardict.uber.space/babylon/english/index.html"
+    base_url = "https://stardict.uber.space/babylon/english/"
+    results = []
+    
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            html_content = response.read().decode('utf-8')
+    except Exception as e:
+        print(f"Error fetching URL {url}: {e}")
+        return results
+    
+    link_pattern = re.compile(r'<a href="(stardict-[^"]+\.tar\.bz2)">([^<]+)</a>')
+    
+    for match in link_pattern.finditer(html_content):
+        filename = match.group(1)
+        dict_name = match.group(2).strip()
+        
+        if 'This dictionary has some html issues' in dict_name:
+            dict_name = dict_name.replace(' This dictionary has some html issues', '')
+        
+        results.append({
+            'Source': 'eng',
+            'Target': 'eng',
+            'Name': dict_name,
+            'Link': base_url + filename,
+            'HeadwordCount': '',
+            'Version': '2.4.2',
+            'Date': ''
+        })
+    
+    print(f"Successfully extracted {len(results)} entries from Babylon English")
+    return results
+
+def parse_babylon_chinese():
+    url = "https://stardict.uber.space/babylon/chinese/index.html"
+    base_url = "https://stardict.uber.space/babylon/chinese/"
+    results = []
+    
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req) as response:
+            html_content = response.read().decode('utf-8')
+    except Exception as e:
+        print(f"Error fetching URL {url}: {e}")
+        return results
+    
+    link_pattern = re.compile(r'<a href="(stardict-[^"]+\.tar\.bz2)">([^<]+)</a>')
+    
+    for match in link_pattern.finditer(html_content):
+        filename = match.group(1)
+        dict_name = match.group(2).strip()
+        
+        dict_name = dict_name.replace('"Names of the World\'s Peoples"', '')
+        
+        results.append({
+            'Source': 'eng',
+            'Target': 'zho',
+            'Name': dict_name,
+            'Link': base_url + filename,
+            'HeadwordCount': '',
+            'Version': '2.4.2',
+            'Date': ''
+        })
+    
+    print(f"Successfully extracted {len(results)} entries from Babylon Chinese")
+    return results
+
 def main():
     sources_dir = 'sources'
     output_file = 'stardict_dictionaries.tsv'
@@ -841,6 +910,14 @@ def main():
     
     # Explicitly run Babylon Bidirectional parser
     rows = parse_babylon_bidirectional()
+    all_rows.extend(rows)
+    
+    # Explicitly run Babylon English parser
+    rows = parse_babylon_english()
+    all_rows.extend(rows)
+    
+    # Explicitly run Babylon Chinese parser
+    rows = parse_babylon_chinese()
     all_rows.extend(rows)
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
