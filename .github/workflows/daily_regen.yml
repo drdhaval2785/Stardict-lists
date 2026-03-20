@@ -1,0 +1,41 @@
+name: Daily Regen
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regen-tsv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run generation script
+        run: python3 generate_tsv.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "drdhaval2785"
+          git config --global user.email "drdhaval2785@users.noreply.github.com"
+          if git diff --quiet stardict_dictionaries.tsv; then
+            echo "No changes in stardict_dictionaries.tsv"
+          else
+            git add stardict_dictionaries.tsv
+            git commit -m "regen as of $(date +'%Y-%m-%d')"
+            git push
+          fi

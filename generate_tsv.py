@@ -914,67 +914,23 @@ def parse_babylon_chinese():
     return results
 
 def main():
-    sources_dir = 'sources'
     output_file = 'stardict_dictionaries.tsv'
     all_rows = []
     
-    # Rule 3: Keep methods different for every source.
-    # We use a mapping of filename to its specific parser function.
-    parsers = {
-        'freedict-database.json': parse_freedict,
-        'dictionaryIndices.md': parse_dictionary_indices,
-        'wiktionary': parse_wiktionary,
-        'wikdict': parse_wikdict
-    }
-    if os.path.exists(sources_dir):
-        for filename in os.listdir(sources_dir):
-            if filename in parsers and filename != 'wiktionary':
-                file_path = os.path.join(sources_dir, filename)
-                rows = parsers[filename](file_path)
-                all_rows.extend(rows)
-            elif filename not in parsers:
-                print(f"Warning: No parser defined for source '{filename}'")
-    else:
-        print(f"Error: Directory '{sources_dir}' not found.")
-        return
-    # Explicitly run wiktionary parser since it doesn't have a local source file
-    if 'wiktionary' in parsers:
-        rows = parsers['wiktionary'](None)
-        all_rows.extend(rows)
-                
-    # Explicitly run wikdict parser since it doesn't have a local source file
-    rows = parse_wikdict(None)
-    all_rows.extend(rows)
+    # Run all parsers sequentially. They use online sources by default.
+    all_rows.extend(parse_freedict(None))
+    all_rows.extend(parse_dictionary_indices(None))
+    all_rows.extend(parse_wiktionary(None))
+    all_rows.extend(parse_wikdict(None))
+    all_rows.extend(parse_dict_org())
+    all_rows.extend(parse_freedict_de())
+    all_rows.extend(parse_quick())
+    all_rows.extend(parse_lingvo())
+    all_rows.extend(parse_babylon_bidirectional())
+    all_rows.extend(parse_babylon_english())
+    all_rows.extend(parse_babylon_chinese())
     
-    # Explicitly run dict.org parser
-    rows = parse_dict_org()
-    all_rows.extend(rows)
-    
-    # Explicitly run freedict.de parser
-    rows = parse_freedict_de()
-    all_rows.extend(rows)
-    
-    # Explicitly run Quick parser
-    rows = parse_quick()
-    all_rows.extend(rows)
-    
-    # Explicitly run Lingvo parser
-    rows = parse_lingvo()
-    all_rows.extend(rows)
-    
-    # Explicitly run Babylon Bidirectional parser
-    rows = parse_babylon_bidirectional()
-    all_rows.extend(rows)
-    
-    # Explicitly run Babylon English parser
-    rows = parse_babylon_english()
-    all_rows.extend(rows)
-    
-    # Explicitly run Babylon Chinese parser
-    rows = parse_babylon_chinese()
-    all_rows.extend(rows)
-    
-    # Hardcoded list for remaining Babylon dictionaries (Source/Target to be filled manually)
+    # Hardcoded list for remaining Babylon dictionaries
     babylon_remaining = [
         # german page
         ("Deutsch-Interlingua Wörterbuch", "https://stardict.uber.space/babylon/german/stardict-babylon-Deutsch_Interlingua_W_rterbuch-2.4.2.tar.bz2", "deu", "ina"),
