@@ -3,7 +3,12 @@ import csv
 import os
 import urllib.request
 import re
-from iso639 import Lang
+try:
+    from iso639 import Lang
+    HAS_ISO639 = True
+except ImportError:
+    HAS_ISO639 = False
+    print("Warning: iso639-lang is not installed. Some language normalization might be rudimentary.")
 
 def parse_freedict(file_path):
     """
@@ -265,13 +270,9 @@ def parse_wiktionary(file_path):
     """
     results = []
     
-    # We will try using Lang (imported at top), if it fails we fall back to a minimal mapping
-    try:
-        _ = Lang('en')
-        has_iso639 = True
-    except (ImportError, NameError):
-        has_iso639 = False
-        print("iso639-lang not installed or failed to import. Using rudimentary mapping for Wiktionary languages.")
+    # We will try using Lang (imported at top)
+    global HAS_ISO639
+    has_iso639 = HAS_ISO639
 
     # Minimal manual mapping for iso639 misses and common fallbacks
     manual_mapping = {
@@ -428,6 +429,9 @@ def normalize_lang2(code):
     """
     Converts 2-letter ISO 639-1 to 3-letter ISO 639-2 using the iso639 module.
     """
+    global HAS_ISO639
+    if not HAS_ISO639:
+        return code
     try:
         # Get the language object and return the part2t (terminological) 3-letter code
         code3 = Lang(code).pt3
