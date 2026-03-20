@@ -3,6 +3,40 @@ import csv
 import os
 import urllib.request
 import re
+import ssl
+import time
+
+def safe_urlopen(url, retries=3, delay=2):
+    """
+    Safely opens a URL with retries, a custom User-Agent, and SSL fallbacks.
+    Returns the response body as bytes.
+    """
+    last_error = None
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=30) as response:
+                return response.read()
+        except Exception as e:
+            last_error = e
+            # If it's an SSL error, try an unverified context on subsequent attempts
+            if attempt > 0 and 'SSL' in str(e):
+                try:
+                    context = ssl._create_unverified_context()
+                    with urllib.request.urlopen(req, context=context, timeout=30) as response:
+                        return response.read()
+                except Exception as e2:
+                    last_error = e2
+            
+            print(f"Error fetching {url} (Attempt {attempt + 1}/{retries}): {last_error}")
+            if attempt < retries - 1:
+                time.sleep(delay)
+    
+    if last_error:
+        raise last_error
+    raise Exception(f"Failed to fetch {url} after {retries} attempts.")
 try:
     from iso639 import Lang
     HAS_ISO639 = True
@@ -16,8 +50,12 @@ def parse_freedict(file_path):
     """
     url = 'https://freedict.org/freedict-database.json'
     print(f"Fetching {url}")
-    with urllib.request.urlopen(url) as response:
-        data = json.load(response)
+    try:
+        content = safe_urlopen(url)
+        data = json.loads(content)
+    except Exception as e:
+        print(f"Failed to parse Freedict JSON: {e}")
+        return []
     
     results = []
     
@@ -95,9 +133,7 @@ def parse_tars_md(url):
     """
     results = []
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            content = response.read().decode('utf-8')
+        content = safe_urlopen(url).decode('utf-8')
     except Exception as e:
         print(f"Error fetching URL {url}: {e}")
         return results
@@ -248,8 +284,11 @@ def parse_dictionary_indices(file_path):
     """
     url = 'https://github.com/indic-dict/stardict-index/raw/refs/heads/master/dictionaryIndices.md'
     print(f"Fetching {url}")
-    with urllib.request.urlopen(url) as response:
-        content = response.read().decode('utf-8')
+    try:
+        content = safe_urlopen(url).decode('utf-8')
+    except Exception as e:
+        print(f"Error fetching URL {url}: {e}")
+        return []
     
     url_pattern = re.compile(r'<(https://raw\.githubusercontent\.com/indic-dict/[^>]*tars.*\.MD)>')
     urls = url_pattern.findall(content)
@@ -385,10 +424,8 @@ def parse_wiktionary(file_path):
     url = "https://api.github.com/repos/Vuizur/Wiktionary-Dictionaries/contents/"
     print(f"Fetching from {url}...")
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            content = response.read().decode('utf-8')
-            data = json.loads(content)
+        content = safe_urlopen(url).decode('utf-8')
+        data = json.loads(content)
     except Exception as e:
         print(f"Error fetching Wiktionary repositories: {e}")
         return results
@@ -446,8 +483,7 @@ def parse_wikdict(file_path=None):
     
     try:
         # Fetching the HTML content
-        with urllib.request.urlopen(url) as response:
-            html_content = response.read().decode('utf-8')
+        html_content = safe_urlopen(url).decode('utf-8')
         # Regex to find the link and the date in the same table row
         # Group 1: full filename, Group 2: src, Group 3: target, Group 4: date
         pattern = re.compile(
@@ -535,9 +571,7 @@ def parse_freedict_de():
     results = []
     
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            html_content = response.read().decode('utf-8')
+        html_content = safe_urlopen(url).decode('utf-8')
     except Exception as e:
         print(f"Error fetching URL {url}: {e}")
         return results
@@ -635,9 +669,7 @@ def parse_lingvo():
     results = []
     
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            html_content = response.read().decode('utf-8')
+        html_content = safe_urlopen(url).decode('utf-8')
     except Exception as e:
         print(f"Error fetching URL {url}: {e}")
         return results
@@ -730,9 +762,7 @@ def parse_babylon_bidirectional():
     results = []
     
     try:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req) as response:
-            html_content = response.read().decode('utf-8')
+        html_content = safe_urlopen(url).decode('utf-8')
     except Exception as e:
         print(f"Error fetching URL {url}: {e}")
         return results
@@ -828,6 +858,26 @@ def parse_babylon_english():
     
     print(f"Successfully extracted {len(results)} entries from Babylon English")
     return results
+
+"""
+def parse_babylon_english2():
+    results = []
+    with open('missing_from_stardict_uber.tsv', 'r') as fin:
+        for lin in fin:
+            lin = lin.rstrip('\n')
+            parts = lin.split('\t')
+            results.append({
+                'Source': parts[0],
+                'Target': parts[1],
+                'Name': parts[2],
+                'Link': parts[3],
+                'HeadwordCount': parts[4],
+                'Version': parts[5],
+                'Date': parts[6]
+            })
+    print(f"Successfully extracted {len(results)} entries from Babylon English")
+    return results
+"""
 
 def parse_babylon_chinese():
     url = "https://stardict.uber.space/babylon/chinese/index.html"
