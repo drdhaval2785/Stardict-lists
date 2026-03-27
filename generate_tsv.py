@@ -20,7 +20,7 @@ def get_url_type(url):
         return 'UBER'
     return 'OTHER'
 
-def fetch_http_headers(url, timeout=10):
+def fetch_http_headers(url, timeout=10, retries=3):
     """
     Fetch HTTP headers for a URL using HEAD request.
     Returns dict with etag, content_length, last_modified.
@@ -28,28 +28,36 @@ def fetch_http_headers(url, timeout=10):
     result = {'etag': '', 'content_length': '', 'last_modified': ''}
     headers = {'User-Agent': 'Mozilla/5.0'}
     
-    try:
-        req = urllib.request.Request(url, headers=headers, method='HEAD')
-        with urllib.request.urlopen(req, timeout=timeout) as response:
-            headers_dict = dict(response.headers)
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(url, headers=headers, method='HEAD')
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                headers_dict = dict(response.headers)
+                
+                # ETag: etag or ETag
+                result['etag'] = headers_dict.get('ETag', headers_dict.get('etag', '')).strip('"')
+                
+                # Content-Length
+                result['content_length'] = headers_dict.get('Content-Length', '')
+                
+                # Last-Modified: Last-Modified or last-modified
+                last_mod = headers_dict.get('Last-Modified', headers_dict.get('last-modified', ''))
+                if last_mod:
+                    try:
+                        dt = parsedate_to_datetime(last_mod)
+                        result['last_modified'] = dt.strftime('%a, %d %b %Y %H:%M:%S GMT')
+                    except Exception:
+                        result['last_modified'] = last_mod
+                        
+            print(f"SUCCESS: {url}")
+            return result
             
-            # ETag: etag or ETag
-            result['etag'] = headers_dict.get('ETag', headers_dict.get('etag', '')).strip('"')
-            
-            # Content-Length
-            result['content_length'] = headers_dict.get('Content-Length', '')
-            
-            # Last-Modified: Last-Modified or last-modified
-            last_mod = headers_dict.get('Last-Modified', headers_dict.get('last-modified', ''))
-            if last_mod:
-                try:
-                    dt = parsedate_to_datetime(last_mod)
-                    result['last_modified'] = dt.strftime('%a, %d %b %Y %H:%M:%S GMT')
-                except Exception:
-                    result['last_modified'] = last_mod
-                    
-    except Exception as e:
-        pass
+        except Exception as e:
+            if attempt < retries - 1:
+                print(f"RETRY ({attempt + 1}/{retries}): {url} - {type(e).__name__}: {str(e)[:50]}")
+                time.sleep(1)
+            else:
+                print(f"FAILURE: {url} - {type(e).__name__}: {str(e)[:80]}")
     
     return result
 
@@ -1121,6 +1129,7 @@ def main():
     for idx, row in enumerate(all_rows):
         if 'Link' in row and row['Link']:
             row['Link'] = row['Link'].replace('https://github.com', 'https://raw.githubusercontent.com')
+            row['Link'] = row['Link'].replace('raw/gh-pages', 'gh-pages')
             
             http_headers = fetch_http_headers(row['Link'])
             
