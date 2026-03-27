@@ -55,7 +55,6 @@ def fetch_http_headers(url, timeout=10, retries=3):
         except Exception as e:
             if attempt < retries - 1:
                 print(f"RETRY ({attempt + 1}/{retries}): {url} - {type(e).__name__}: {str(e)[:50]}")
-                time.sleep(1)
             else:
                 print(f"FAILURE: {url} - {type(e).__name__}: {str(e)[:80]}")
     
