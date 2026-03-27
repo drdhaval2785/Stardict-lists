@@ -1049,7 +1049,11 @@ def main():
     print(f"Added {len(babylon_remaining)} Babylon dictionaries with empty Source/Target")
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
-                
+
+    for row in all_rows:
+        if 'Link' in row and row['Link']:
+            row['Link'] = row['Link'].replace('https://github.com', 'https://raw.githubusercontent.com')
+
     # Rule 1 & 2: Output TSV with mandatory and optional columns
     fieldnames = ['Source', 'Target', 'Name', 'Link', 'HeadwordCount', 'Version', 'Date']
     with open(output_file, 'w', encoding='utf-8', newline='') as f:
