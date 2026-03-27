@@ -5,6 +5,73 @@ import urllib.request
 import re
 import ssl
 import time
+from datetime import datetime
+from email.utils import parsedate_to_datetime
+
+def get_url_type(url):
+    """Determine the type of URL based on domain."""
+    if 'download.freedict.org' in url:
+        return 'FREEDICT'
+    elif 'github.com' in url or 'raw.githubusercontent.com' in url:
+        return 'GITHUB'
+    elif 'download.wikdict.com' in url:
+        return 'WIKDICT'
+    elif 'stardict.uber.space' in url:
+        return 'UBER'
+    return 'OTHER'
+
+def fetch_http_headers(url, timeout=10):
+    """
+    Fetch HTTP headers for a URL using HEAD request.
+    Returns dict with etag, content_length, last_modified.
+    """
+    result = {'etag': '', 'content_length': '', 'last_modified': ''}
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    
+    try:
+        req = urllib.request.Request(url, headers=headers, method='HEAD')
+        with urllib.request.urlopen(req, timeout=timeout) as response:
+            headers_dict = dict(response.headers)
+            
+            # ETag: etag or ETag
+            result['etag'] = headers_dict.get('ETag', headers_dict.get('etag', '')).strip('"')
+            
+            # Content-Length
+            result['content_length'] = headers_dict.get('Content-Length', '')
+            
+            # Last-Modified: Last-Modified or last-modified
+            last_mod = headers_dict.get('Last-Modified', headers_dict.get('last-modified', ''))
+            if last_mod:
+                try:
+                    dt = parsedate_to_datetime(last_mod)
+                    result['last_modified'] = dt.strftime('%a, %d %b %Y %H:%M:%S GMT')
+                except Exception:
+                    result['last_modified'] = last_mod
+                    
+    except Exception as e:
+        pass
+    
+    return result
+
+def format_existing_date(date_str):
+    """Format existing date to HTTP date format if not already in that format."""
+    if not date_str:
+        return ''
+    
+    # Check if already in HTTP format
+    if ', ' in date_str and ' GMT' in date_str:
+        return date_str
+    
+    # Try to parse various date formats
+    formats = ['%Y-%m-%d', '%Y-%m-%d %H:%M:%S', '%d %b %Y', '%d-%b-%Y', '%Y/%m/%d']
+    for fmt in formats:
+        try:
+            dt = datetime.strptime(date_str, fmt)
+            return dt.strftime('%a, %d %b %Y %H:%M:%S GMT')
+        except Exception:
+            continue
+    
+    return date_str
 
 def safe_urlopen(url, retries=3, delay=2):
     """
@@ -1050,12 +1117,33 @@ def main():
                 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
 
-    for row in all_rows:
+    print(f"Fetching HTTP headers for {len(all_rows)} URLs...")
+    for idx, row in enumerate(all_rows):
         if 'Link' in row and row['Link']:
             row['Link'] = row['Link'].replace('https://github.com', 'https://raw.githubusercontent.com')
+            
+            http_headers = fetch_http_headers(row['Link'])
+            
+            # Update Date: use last_modified if available, else format existing date
+            if http_headers['last_modified']:
+                row['Date'] = http_headers['last_modified']
+            elif row.get('Date'):
+                row['Date'] = format_existing_date(row['Date'])
+            
+            # Add new columns
+            row['Etag'] = http_headers['etag']
+            row['Content-Length'] = http_headers['content_length']
+        
+        if (idx + 1) % 100 == 0:
+            print(f"  Processed {idx + 1}/{len(all_rows)} URLs...")
+        
+        # Small delay to avoid rate limiting
+        time.sleep(0.05)
+
+    print(f"Completed fetching headers for {len(all_rows)} URLs.")
 
     # Rule 1 & 2: Output TSV with mandatory and optional columns
-    fieldnames = ['Source', 'Target', 'Name', 'Link', 'HeadwordCount', 'Version', 'Date']
+    fieldnames = ['Source', 'Target', 'Name', 'Link', 'HeadwordCount', 'Version', 'Date', 'Etag', 'Content-Length']
     with open(output_file, 'w', encoding='utf-8', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='\t')
         writer.writeheader()
