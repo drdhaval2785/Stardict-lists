@@ -289,9 +289,9 @@ def parse_tars_md(url):
         # 3. samskritam-tamizham_dictionary has 'tam' as target.
         if name == 'samskritam-tamizham_dictionary':
             tgt_lang = 'tam'
-        # 4. 'shabdArtha_kaustubha' has 'tel' as target.
+        # 4. 'shabdArtha_kaustubha' has 'kan' as target.
         if name == 'shabdArtha_kaustubha':
-            tgt_lang = 'tel'
+            tgt_lang = 'kan'
         # 5. 'bopp' has 'lat' as target.
         if name == 'bopp':
             tgt_lang = 'lat'
