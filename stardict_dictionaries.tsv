@@ -559,19 +559,19 @@ tel	tel	brown_dev	https://raw.githubusercontent.com/indic-dict/stardict-telugu/g
 tel	tel	janapada_dev	https://raw.githubusercontent.com/indic-dict/stardict-telugu/gh-pages/te-head/en-entries_dev-script/tars/janapada_dev__2022-01-22_15-16-33Z__2MB.tar.gz			Sat, 22 Jan 2022 00:00:00 GMT	daffd024321180a020523a7580cb8f8f34ce111dbb6c3ea1eca0d13794683b9a	2992792
 eng	tel	paribhashika_nighantuvu	https://raw.githubusercontent.com/indic-dict/stardict-telugu/gh-pages/en-head/tars/paribhashika_nighantuvu__2023-06-16_05-43-53Z__5MB.tar.gz			Fri, 16 Jun 2023 00:00:00 GMT	0aefc30aa6b951df4b1634559f0f3ffe3dd0698d0449e6f98f6e07f58db22e8f	5436335
 tel	tel	paribhashika_nighantuvu_en	https://raw.githubusercontent.com/indic-dict/stardict-telugu/gh-pages/en-head_en-script/tars/paribhashika_nighantuvu_en__2022-01-22_15-16-33Z__4MB.tar.gz			Sat, 22 Jan 2022 00:00:00 GMT	bb6f0b589b478febeafbf1f56e1b81cef496b58b3fe89235b29feacbacc6da69	5154281
-eng	eng	AHD_Indo-European_and_Semitic_Roots_Supplement	https://archive.org/download/stardict_collections/archives-english/en-head/AHD_Indo-European_and_Semitic_Roots_Supplement.tar.gz			Sat, 14 Oct 2017 19:44:59 GMT	59e2693b-102c15	1059861
-eng	eng	American_Heritage_Dictionary_4th_Ed	https://archive.org/download/stardict_collections/archives-english/en-head/American_Heritage_Dictionary_4th_Ed.tar.gz			Sat, 14 Oct 2017 19:44:55 GMT	59e26937-3893414	59323412
-eng	eng	American_Idioms_2nd_Ed	https://archive.org/download/stardict_collections/archives-english/en-head/American_Idioms_2nd_Ed.tar.gz			Sat, 14 Oct 2017 19:43:33 GMT	59e268e5-26ade2	2534882
-eng	eng	Collins_Thesaurus	https://archive.org/download/stardict_collections/archives-english/en-head/Collins_Thesaurus.tar.gz			Sat, 14 Oct 2017 19:43:28 GMT	59e268e0-bb3c7	766919
-eng	eng	Longman_Dictionary_of_Common_Errors	https://archive.org/download/stardict_collections/archives-english/en-head/Longman_Dictionary_of_Common_Errors.tar.gz			Sat, 14 Oct 2017 19:43:25 GMT	59e268dd-63ed4	409300
-eng	eng	Longman_Pronunciation_Dictionary_3rd_Ed	https://archive.org/download/stardict_collections/archives-english/en-head/Longman_Pronunciation_Dictionary_3rd_Ed.tar.gz			Sat, 14 Oct 2017 19:43:23 GMT	59e268db-922adb	9579227
-eng	eng	Oxford_Advanced_Learner_s_Dictionary	https://archive.org/download/stardict_collections/archives-english/en-head/Oxford_Advanced_Learner_s_Dictionary.tar.gz			Sat, 14 Oct 2017 19:43:09 GMT	59e268cd-b580552	190317906
-eng	eng	Oxford_Collocations_Dictionary_2nd_Ed	https://archive.org/download/stardict_collections/archives-english/en-head/Oxford_Collocations_Dictionary_2nd_Ed.tar.gz			Sat, 14 Oct 2017 19:38:51 GMT	59e267cb-4cf526	5043494
-eng	eng	WordNet_3	https://archive.org/download/stardict_collections/archives-english/en-head/WordNet_3.tar.gz			Sat, 14 Oct 2017 19:38:44 GMT	59e267c4-1419f3c	21077820
+eng	eng	AHD_Indo-European_and_Semitic_Roots_Supplement	https://archive.org/download/stardict_collections/archives-english/en-head/AHD_Indo-European_and_Semitic_Roots_Supplement.tar.gz					
+eng	eng	American_Heritage_Dictionary_4th_Ed	https://archive.org/download/stardict_collections/archives-english/en-head/American_Heritage_Dictionary_4th_Ed.tar.gz					
+eng	eng	American_Idioms_2nd_Ed	https://archive.org/download/stardict_collections/archives-english/en-head/American_Idioms_2nd_Ed.tar.gz					
+eng	eng	Collins_Thesaurus	https://archive.org/download/stardict_collections/archives-english/en-head/Collins_Thesaurus.tar.gz					
+eng	eng	Longman_Dictionary_of_Common_Errors	https://archive.org/download/stardict_collections/archives-english/en-head/Longman_Dictionary_of_Common_Errors.tar.gz					
+eng	eng	Longman_Pronunciation_Dictionary_3rd_Ed	https://archive.org/download/stardict_collections/archives-english/en-head/Longman_Pronunciation_Dictionary_3rd_Ed.tar.gz					
+eng	eng	Oxford_Advanced_Learner_s_Dictionary	https://archive.org/download/stardict_collections/archives-english/en-head/Oxford_Advanced_Learner_s_Dictionary.tar.gz					
+eng	eng	Oxford_Collocations_Dictionary_2nd_Ed	https://archive.org/download/stardict_collections/archives-english/en-head/Oxford_Collocations_Dictionary_2nd_Ed.tar.gz					
+eng	eng	WordNet_3	https://archive.org/download/stardict_collections/archives-english/en-head/WordNet_3.tar.gz					
 eng	kan	subbarAya_en-kn	https://raw.githubusercontent.com/indic-dict/stardict-english/gh-pages/en-head/other-entries/tars/subbarAya_en-kn__2024-05-11_07-25-25Z__3MB.tar.gz			Sat, 11 May 2024 00:00:00 GMT	77677ab4c5984a2b9459e6062e8705a6e01a81636e81194441d705bf7a307892	3972824
-ell	eng	MiddleLiddell	https://archive.org/download/stardict_collections/archives-english/other-head/MiddleLiddell.tar.gz			Tue, 02 Jan 2018 04:41:51 GMT	5a4b0d8f-26aee1	2535137
-lat	eng	LewissAnElementaryLatinDictionary	https://archive.org/download/stardict_collections/archives-english/other-head/LewissAnElementaryLatinDictionary.tar.gz			Tue, 02 Jan 2018 04:43:40 GMT	5a4b0dfc-261853	2496595
-ell	eng	greek-analyses-unicode-babylon	https://archive.org/download/stardict_collections/archives-english/other-head/greek-analyses-unicode-babylon.tar.gz			Tue, 02 Jan 2018 04:41:46 GMT	5a4b0d8a-f34291	15942289
+ell	eng	MiddleLiddell	https://archive.org/download/stardict_collections/archives-english/other-head/MiddleLiddell.tar.gz					
+lat	eng	LewissAnElementaryLatinDictionary	https://archive.org/download/stardict_collections/archives-english/other-head/LewissAnElementaryLatinDictionary.tar.gz					
+ell	eng	greek-analyses-unicode-babylon	https://archive.org/download/stardict_collections/archives-english/other-head/greek-analyses-unicode-babylon.tar.gz					
 bod	bod	84k-glossary	https://raw.githubusercontent.com/indic-dict/stardict-tibetan/gh-pages/bo-head/tars/84k-glossary__2024-06-15_01-00-13Z__1MB.tar.gz			Sat, 15 Jun 2024 00:00:00 GMT	dd24ab43394cd3ac441f2f61c3c17b9260e737b1faae0b97d1c631a61e600bf4	1963752
 bod	bod	chandra-skt	https://raw.githubusercontent.com/indic-dict/stardict-tibetan/gh-pages/bo-head/tars/chandra-skt__2024-06-15_01-34-35Z__0MB.tar.gz			Sat, 15 Jun 2024 00:00:00 GMT	68929daa15b108291a3a27bd9973fc1451a93d569b61fdfa0221b1dc552523be	768783
 bod	bod	hopkins	https://raw.githubusercontent.com/indic-dict/stardict-tibetan/gh-pages/bo-head/tars/hopkins__2024-06-15_01-00-13Z__0MB.tar.gz			Sat, 15 Jun 2024 00:00:00 GMT	dcd5cc6c1406b60e6123d2987cd89b1aabd2a525691b5fc2ba2785ed871b548b	928046
